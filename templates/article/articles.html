@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h3>Articles</h3>
+    <hr>
+    {% if articles %}
+        <form action="/articles/search" method="post">
+            <input type="text" name = "keyword" class="input-sm" maxlength="64" placeholder="Search">
+            <button type="submit" class="btn btn-danger">Search</button>
+        </form>
+
+        <br>
+        <br>
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-sm-4">
+                    <div class="card" style="width: 18rem; margin-bottom:10px;">
+                        {% if article.imgurl %}
+                            <img class="card-img-top" src="{{article.imgurl}}" alt="Card image cap" style="height: 190px;">
+                        {% else %}
+                            <img class="card-img-top" src="https://cdn.codecarrot.net/images/files-and-folders.jpg" alt="Card image cap" style="height: 190px;">
+                        {% endif %}
+                        <div class="card-body">
+                          <h5 class="card-title">{{article.title}}</h5>
+                          <p class="card-text">Author : <i>{{article.author}}</i></p>
+                          <a href="/article/{{article.id}}" class="btn btn-primary"><strong>Go Article</strong></a>
+                        </div>
+                      </div>
+                </div>
+            {%  endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-danger">There are no articles yet.</div>
+    {% endif %}
+{% endblock body %}
